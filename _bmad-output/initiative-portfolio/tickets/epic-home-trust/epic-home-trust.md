@@ -5,7 +5,7 @@ title: "First-screen trust and the honest scroll"
 parent: initiative-portfolio
 covers: ["R1", "R6", "R7", "R8"]
 sources: []
-companions: []
+companions: ["_bmad-output/initiative-portfolio/architecture-portfolio/architecture-portfolio.md"]
 after: ["epic-portfolio-foundation"]
 refined: false
 risk: low
@@ -36,7 +36,8 @@ A cold visitor passes the is-he-real-and-reachable check in one screen and reach
 ## References
 
 - parent — `_bmad-output/initiative-portfolio/initiative-portfolio.md`, Requirements R1, R6, R7, R8
-- prd — `_bmad-output/initiative-portfolio/prd-portfolio/prd-portfolio.md`, FR-1, FR-6, FR-9, FR-10, FR-13, UJ-1
+- prd — `_bmad-output/initiative-portfolio/prd-portfolio/prd-portfolio.md`, FR-1, FR-9, FR-10, FR-13, UJ-1
+- companion — `_bmad-output/initiative-portfolio/architecture-portfolio/architecture-portfolio.md`, spine for this epic: AD-4, AD-5, AD-10 (extends the revalidation path map for the pages it adds), AD-11 (consumes the shared SSR fetch layer; the intro video never blocks first paint); convention: this epic creates and owns the single section-key registry — the honest-launch message and the guarantee copy are `content` rows seeded here, never hardcoded in `web/`
 
 ## Notes
 

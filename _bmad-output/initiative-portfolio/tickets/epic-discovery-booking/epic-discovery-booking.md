@@ -5,7 +5,7 @@ title: "Discovery-call booking"
 parent: initiative-portfolio
 covers: ["R4"]
 sources: []
-companions: []
+companions: ["_bmad-output/initiative-portfolio/architecture-portfolio/architecture-portfolio.md"]
 after: ["epic-home-trust", "epic-contact-form"]
 refined: false
 risk: medium
@@ -38,6 +38,7 @@ The visitor's decision becomes a booked call in under a minute, and the calendar
 
 - parent — `_bmad-output/initiative-portfolio/initiative-portfolio.md`, Requirement R4
 - prd — `_bmad-output/initiative-portfolio/prd-portfolio/prd-portfolio.md`, FR-5, FR-6, RULE-3, RULE-5, RULE-6, UJ-1
+- companion — `_bmad-output/initiative-portfolio/architecture-portfolio/architecture-portfolio.md`, spine for this epic: AD-2 (a booking never touches the site DB — it lives in the scheduler behind a short-lived signed handoff through Django), AD-7 (booking notifications send through the shared email port with the same delivery-status rule; scheduler-native confirmation emails are supplementary and out of RULE-5's scope), AD-9 (reuses the contact epic's email adapter and the shared captcha — server-side verified at the booking handoff; adds no ports, no adapters), AD-12 (the conversion path carries the spine's 99% monthly availability target; this epic's booking path is part of it); convention: RULE-3 lives in scheduler configuration and site copy, not in code
 
 ## Notes
 

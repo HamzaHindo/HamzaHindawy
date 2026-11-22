@@ -5,7 +5,7 @@ title: "Launch: hosting and go-live"
 parent: initiative-portfolio
 covers: []
 sources: []
-companions: []
+companions: ["_bmad-output/initiative-portfolio/architecture-portfolio/architecture-portfolio.md"]
 after: ["epic-project-proof", "epic-contact-form", "epic-discovery-booking", "epic-content-admin"]
 refined: false
 risk: medium
@@ -38,6 +38,7 @@ Real visitors reach a live site whose speed, cost and conversion paths are verif
 
 - parent — `_bmad-output/initiative-portfolio/initiative-portfolio.md`, Constraints C5, C8; Open questions Q4, Q5, Q9
 - prd — `_bmad-output/initiative-portfolio/prd-portfolio/prd-portfolio.md`, RULE-4, RULE-7, Integrations and operations, Data and compliance
+- companion — `_bmad-output/initiative-portfolio/architecture-portfolio/architecture-portfolio.md`, spine for this epic: AD-5 (ratifies the Vercel working assumption, weighing the Hobby plan's non-commercial ToS clause), AD-11 (owns keeping Django warm — uptime, keep-alive, monitoring), AD-12 (owns launch verification: dev + prod only, deploy = merge to main, one tested Postgres restore, uptime monitor on the API and conversion paths, the spine's 99% monthly availability target for booking + form); the spine's Deferred table names what settles here: Python host + region, Vercel ratification, against Q9's still-open cost ceiling
 
 ## Notes
 

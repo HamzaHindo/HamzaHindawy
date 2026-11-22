@@ -5,7 +5,8 @@ parent: none
 sources:
   - _bmad-output/initiative-portfolio/brainstorm-software-engineer-portfolio/.memlog.md
   - _bmad-output/initiative-portfolio/prd-portfolio/prd-portfolio.md
-companions: []
+companions:
+  - _bmad-output/initiative-portfolio/architecture-portfolio/architecture-portfolio.md
 after: []
 risk: medium
 ---
@@ -70,12 +71,14 @@ Freelance prospects visiting the site trust Hamza enough to book a free discover
 - Touch point: Hamza's email inbox — form messages and booking notifications arrive there; owner: the booking/contact epics.
 - Touch point: the third-party scheduler — owns open slots and most of the spam protection; owner: the booking epic.
 - Touch point: the email delivery service — owner: the contact-form epic (Q3).
+- Touch point: the analytics service — basic traffic analytics chosen and wired by the foundation epic; owner: epic 1.
 - Tracer path: land → trust cues → project page with stats and GitHub link → book a discovery call or submit the contact form.
 
 ## References
 
 - source — `_bmad-output/initiative-portfolio/brainstorm-software-engineer-portfolio/.memlog.md`, brainstorm decisions, ideas and insights
 - source — `_bmad-output/initiative-portfolio/prd-portfolio/prd-portfolio.md`, the final PRD: journeys UJ-1 to UJ-3, features FR-1 to FR-15, rules RULE-1 to RULE-7, success metrics SM-1 to SM-3, integrations and decisions; cited by id rather than restated
+- companion — `_bmad-output/initiative-portfolio/architecture-portfolio/architecture-portfolio.md`, the architecture spine: paradigm, invariants AD-1 to AD-12, consistency conventions, stack and the capability map; binds all seven epics and is cited by each
 
 ## Notes
 
@@ -96,3 +99,5 @@ Freelance prospects visiting the site trust Hamza enough to book a free discover
 - Decision: 2026-11-22 — one email service carries form messages and booking notifications; the booking epic waits on the contact epic's choice (Q3). Owner call on the epic split.
 - Decision: 2026-11-22 — the hosting platform is settled after the website is built, overriding PRD OQ-4's before-the-opening-epic timing; a launch epic (epic 7) owns hosting, domain, the cost ceiling and production verification; the build stack is still picked in the foundation epic's first story.
 - Decision: 2026-11-22 — sliced into seven epics in build order: foundation → home trust → project proof → contact form + email → booking → admin → launch. The captcha's home is the contact epic (earliest needer); R9 splits launch part (epic 3) from growth part (epic 6); declined: transitive after entries — prerequisites are declared once, at the point of need.
+- Decision: 2026-11-22 — `architecture-portfolio` adopted as the initiative's companion spine; every epic cites it and lists the ADs that bind it in its References. The spine's one deliberate scope addition (AD-3: a read-only messages inbox in the admin area, beyond FR-11/FR-12) is folded into epic 6. Vendor choices the spine leaves open stay open: email and captcha (epic 4), scheduler (epic 5), storage vendor (epic 6, before epic 3's seed), hosting and Vercel ratification (epic 7).
+- Decision: 2026-11-22 — tree check at adoption fixed: AD-8's storage-vendor timing amended in the spine (epic 3 seeds on epic 1's dev/local adapter, epic 6 migrates, epic 7 verifies in production); epic 3 states its handoffs to epics 6 and 7; the analytics service added to the initiative's touch points; epic 2's prd citation drops FR-6 (booking's scope, epic 5). Recorded as assumptions in epics 3 and 4: their AD-10 path-map extensions are additive keyed entries, so no ordering is needed between them.
