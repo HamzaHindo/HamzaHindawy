@@ -1,0 +1,69 @@
+# Approved draft — initiative sliced into epics, in build order (owner yes 2026-11-22).
+# Owner calls folded in: one email service (contact epic before booking); hosting settled after the build (launch epic, epic 7).
+
+[[epic]]
+id = 1
+slug = "epic-portfolio-foundation"
+title = "Portfolio foundation"
+description = "The scaffold builds and runs with tests, analytics record visits and conversions, and only Hamza can sign in to the admin area. The platform baseline the other epics build on; hosting is deliberately deferred to the launch epic (epic 7)."
+covers = ["R12", "R13"]
+
+[[epic]]
+id = 2
+slug = "epic-home-trust"
+title = "First-screen trust and the honest scroll"
+description = "A cold visitor's first screen shows photo, claim and presence cue, the intro video plays before the conversion point, and the honest reviews message and the 30-day guarantee sit in the scroll. Provides the hooks later epics build into: the home page shell with its gallery slot, the hero with a Book Now CTA slot, and the scroll the contact section closes."
+covers = ["R1", "R6", "R7", "R8"]
+after = [{ epic = 1, needs = "the scaffold and analytics" }]
+
+[[epic]]
+id = 3
+slug = "epic-project-proof"
+title = "Project proof pages"
+description = "Gallery tiles open project pages that carry scale figures with translation lines, technologies, live URL, screenshots, and repo links or the stated reason; the launch gallery holds one real project."
+covers = ["R2", "R3", "R9"] # R9's launch part; the growth part is epic 6's
+after = [{ epic = 2, needs = "the home page shell and its gallery slot" }]
+
+[[epic]]
+id = 4
+slug = "epic-contact-form"
+title = "Contact form and email delivery"
+description = "A visitor submits the form at the end of the scroll, sees instant confirmation, and the message reaches Hamza's email with delivery failure surfaced through a second channel; the captcha guard is introduced here — a scripted burst of fake submissions is blocked while a genuine message completes with no more than the guard's single check. The conversion event lands in analytics. Settles the email service (Q3), which also carries the booking notifications epic 5 sends."
+covers = ["R5"]
+after = [{ epic = 2, needs = "the home page scroll the form section closes" }]
+
+[[epic]]
+id = 5
+slug = "epic-discovery-booking"
+title = "Discovery-call booking"
+description = "A visitor books a free 10-15-minute slot through the Book Now CTA and sees instant confirmation; a scripted burst of fake bookings is blocked while a genuine booking completes with no more than the single check of the captcha guard epic 4 introduced. Booking notifications go through the email service epic 4 settled, or the failure is surfaced through a second channel. The third-party scheduler is chosen here; the conversion event lands in analytics."
+covers = ["R4"]
+after = [
+  { epic = 2, needs = "the home page hero to place the Book Now CTA in" },
+  { epic = 4, needs = "the email service its booking notifications send through" },
+]
+
+[[epic]]
+id = 6
+slug = "epic-content-admin"
+title = "Content admin area"
+description = "Hamza manages projects, the contact target and section text through the authenticated admin area, and new projects appear in the gallery without touching code."
+covers = ["R9", "R10", "R11"] # R9's growth part; the launch part is epic 3's
+after = [
+  { epic = 3, needs = "the project data model" },
+  { epic = 4, needs = "the contact form and its target-email setting" },
+  { epic = 2, needs = "the sections whose text it edits" },
+]
+
+[[epic]]
+id = 7
+slug = "epic-launch-hosting"
+title = "Launch: hosting and go-live"
+description = "The site is live on the hosting settled after the build: domain and production environment, first meaningful paint under 2 seconds on a mid-range phone, running cost inside the named ceiling, and the booking and form paths re-verified in production. Settles Q4, Q9 and Q5."
+covers = [] # launch and integration work, no requirement of its own; serves C5, C8, RULE-5 in production
+after = [
+  { epic = 3, needs = "the proof pages" },
+  { epic = 4, needs = "the working contact path" },
+  { epic = 5, needs = "the working booking path" },
+  { epic = 6, needs = "the finished admin area" },
+]
