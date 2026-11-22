@@ -1,0 +1,80 @@
+# Epic 1 — Portfolio foundation: agreed stories, in build order.
+# Covers the epic's R1 (parent R12, only-Hamza admin auth) and R2 (parent R13, readable analytics),
+# plus the foundation-owned architecture work the spine assigns this epic (AD-5, AD-6, AD-8–AD-11, conventions).
+
+[[entry]]
+id = 1
+type = "story"
+title = "Monorepo scaffold tracer"
+description = "Stands up the two deployables in one repo — web/ (Next.js 16.4.6) and api/ (Django 6.1.3 + DRF 3.18.3) over PostgreSQL 18 in dev — with the patch pins locked, lint/test/build checks green on both sides, the shared .env.example seeded complete with every foundation-owned variable annotated with its owner and consumer deployable, and one home placeholder page server-rendering a value fetched from a /api/health/ endpoint that reads the database through a migration: the thinnest path through every layer (browser → Next.js → API → PostgreSQL)."
+verify = "Run both deployables' checks locally (all green), then open the dev home page and see the value it read from PostgreSQL."
+covers = []
+after = []
+hitl = false
+risk = "medium"
+
+[[entry]]
+id = 2
+type = "story"
+title = "Analytics events recorded and readable"
+description = "Wires Vercel Web Analytics into web/, defines the analytics event-name registry (conversion_contact, conversion_booking), ships the one SPA emit helper every later confirmation screen calls, and makes a visit and a conversion event recorded and readable on the dev build — Vercel's dashboard can only record on a hosted deployment, so dev recording runs through a local recording path; the dashboard read is verified in production by epic 7."
+verify = "Load the dev home page (a visit is recorded), emit a test conversion through the helper, and read both events back from the dev recording."
+covers = ["R2"]
+after = [1]
+hitl = false
+risk = "medium"
+
+[[entry]]
+id = 3
+type = "story"
+title = "Shared SSR fetch layer and error envelope"
+description = "Puts every server-side fetch from web/ to Django through one shared layer with a fixed 3 s timeout and one degradation rule — serve last-good cached content, never block first paint (AD-11) — and adds the one JSON error envelope ({error: {code, message}}) with the error-code registry as a constant table in the Django repo, mirrored in web/. The auth entry (1.4) and every later API error emitter build on this envelope and registry."
+verify = "With Django stopped or slowed past 3 s, the home page still renders its last-good content; a failed fetch surfaces the envelope's error code."
+covers = []
+after = [1]
+hitl = false
+risk = "medium"
+
+[[entry]]
+id = 4
+type = "story"
+title = "Admin auth: only Hamza signs in"
+description = "Builds the accounts module's auth surface: /api/auth/login, /api/auth/logout and /api/auth/session/ issuing Django's session cookie (httpOnly, Secure, SameSite=Lax) with Django CSRF, the Next.js /api proxy so browser calls share one public origin with no CORS, exactly one seeded Hamza user, and Django's built-in admin site disabled. Consumes the error envelope and registry from entry 3."
+verify = "Hamza signs in and /api/auth/session/ reports his session; non-Hamza credentials are refused at /api/auth/login and no path creates a second user; an anonymous call to an admin endpoint is refused."
+covers = ["R1"]
+after = [1, 3]
+hitl = false
+risk = "medium"
+
+[[entry]]
+id = 5
+type = "story"
+title = "Object-storage port with dev adapter"
+description = "Provisions the object-storage port in the integrations module with a local/dev adapter (AD-8): uploads arrive multipart through the Django side only — the SPA never holds storage credentials — the 10 MB cap is enforced at the API layer, and stored media is returned as absolute public https URLs. Its 10 MB refusal is an API error, so it goes through the error envelope and registry entry 3 built. Epics 3 and 6 consume this port; the vendor choice stays with epic 6; the revalidation and captcha-config entry (1.6) extends this module."
+verify = "Upload a file on the dev build, receive an absolute public URL, and fetch the file back through it; a payload over 10 MB is refused with the envelope's code."
+covers = []
+after = [1, 3]
+hitl = false
+risk = "low"
+
+[[entry]]
+id = 6
+type = "story"
+title = "Revalidation plumbing and captcha config endpoint"
+description = "Builds the content-freshness contract's foundation half (AD-10): a token-protected revalidation route in web/, a revalidation port in the integrations module with a no-op dev adapter, the single page-path map keyed by content entity, the webhook secret documented on both deployables in .env.example — and the one public config endpoint serving the captcha site key while the secret stays a Django env var only (AD-9). Extends the integrations module entry 5 built; its env rows were seeded by entry 1."
+verify = "Calling the revalidation port on dev triggers the token-protected route (accepted with the token, refused without); the config endpoint returns the site key and never the secret."
+covers = []
+after = [1, 5]
+hitl = false
+risk = "low"
+
+[[entry]]
+id = 7
+type = "story"
+title = "Refactor sweep"
+description = "Cleanup only: scope set at its start from this epic's plans and review findings the other entries deferred; scope pushed out of another story is a new story, not this sweep."
+verify = "All checks stay green after the sweep, with no behavior change on the dev build."
+covers = []
+after = [2, 3, 4, 5, 6]
+hitl = false
+risk = "low"
